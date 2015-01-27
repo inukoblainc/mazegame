@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+ <head>
+ 
+  <script type="application/javascript">
+  
+  function draw(){	
+	var canvas = document.getElementById("dklink");
+	var ctx = canvas.getContext("2d");
+	var intervalID = window.setInterval(ctxMove, 30);
+	var down = new Image();
+	down.src = "downopen.png";
+	var dr = new Image();
+	dr.src = "downrightopen.png";
+	var hori = new Image();
+	hori.src = "hori.png";
+	var ld = new Image();
+	ld.src = "leftdown.png";
+	var left = new Image();
+	left.src = "leftopen.png";
+	var lu = new Image();
+	lu.src = "leftup.png";
+	var mid = new Image();
+	mid.src = "mid.png";
+	var right = new Image();
+	right.src = "rightopen.png";
+	var top = new Image();
+	top.src = "topopen.png";
+	var ur = new Image();
+	ur.src = "uprightopen.png";
+	var vert = new Image();
+	vert.src = "vert.png";
+	var dbug = new Image();
+	dbug.src = "dbug.png";
+	var bugup;
+	var bugdown;
+	var bugleft;
+	var bugright;
+	var maze = [
+	    [right,mid,left,dr,ld],
+	    [dr,lu,dr,lu,top],
+	    [vert,dr,lu,right,ld],
+	    [mid,lu,dr,hori,mid],
+	    [ur,hori,lu,right,lu],
+	];
+	var bugx = 40;
+	var bugy = 10;
+	function ctxMove(){
+	    ctx.clearRect(0,0,50,50);
+	    for(i = 0; i < maze[0].length; i++){
+	        ctx.drawImage(maze[0][i],i*10,0);
+	        ctx.drawImage(maze[1][i],i*10,10);
+	        ctx.drawImage(maze[2][i],i*10,20);
+	        ctx.drawImage(maze[3][i],i*10,30);
+	        ctx.drawImage(maze[4][i],i*10,40);
+	    }
+	    ctx.drawImage(dbug,bugx,bugy);
+	    var check = maze[bugy/10][bugx/10];
+	    if(check === right){
+	        bugup = false;
+	        bugdown = false;
+	        bugright = true;
+	        bugleft = false;
+	        debugger;
+	    }
+	    if(check === left){
+	        bugup = false;
+	        bugdown = false;
+	        bugright = false;
+	        bugleft = true;
+	    }
+	    if(check === top){
+	        bugup = true;
+	        bugdown = false;
+	        bugright = false;
+	        bugleft = false;
+	    }
+	    
+        if(check === down){
+	        bugup = true;
+	        bugdown = true;
+	        bugright = false;
+	        bugleft = false;
+	    }
+	    if(check === hori){
+	        bugup = false;
+	        bugdown = false;
+	        bugright = true;
+	        bugleft = true;
+	    }
+	    if(check === vert){
+	        bugup = true;
+	        bugdown = true;
+	        bugright = false;
+	        bugleft = false;
+	    }
+	    if(check === lu){
+	        bugup = true;
+	        bugdown = false;
+	        bugright = false;
+	        bugleft = true;
+	    }
+	    if(check === ur){
+	        bugup = true;
+	        bugdown = false;
+	        bugright = true;
+	        bugleft = false;
+	    }
+	    if(check === ld){
+	        bugup = false;
+	        bugdown = true;
+	        bugright = false;
+	        bugleft = true;
+	    }
+	    if(check === mid){
+	        bugup = true;
+	        bugdown = true
+	        bugright = true;
+	        bugleft = true;
+	    }
+	    if(check === dr){
+	        bugup = false;
+	        bugdown = true;
+	        bugright = true;
+	        bugleft = false;
+	    }
+		
+			
+	
+	}
+	window.onkeydown  = function(e) {
+            var key = e.which 
+
+			if (key == 39 && bugx < 40 && bugright ) {
+				
+				bugx = bugx +10;
+			}
+			if (key == 37 && bugx > 0 && bugleft) {
+				
+				bugx = bugx-10;
+			}
+			if (key == 38 && bugy > 0 && bugup) {
+				bugy = bugy-10;
+				}
+			if (key == 40 && bugy < 40 && bugdown) {
+			    bugy = bugy+10;
+			}
+			
+
+		
+		
+
+	}
+  }
+  
+  
+  </script>
+   
+ <style type="text/css">
+      canvas { border: 1px solid black; }
+    </style>
+ </head>
+ <body onload="draw();">
+   <canvas id="dklink" width="50" height="50"></canvas>
+ </body>
+</html>
