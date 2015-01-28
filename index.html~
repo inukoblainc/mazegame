@@ -5,7 +5,8 @@
   <script type="application/javascript">
   
   function draw(){	
-	var canvas = document.getElementById("dklink");
+	var canvas = document.getElementById("mazegame");
+	
 	var ctx = canvas.getContext("2d");
 	var intervalID = window.setInterval(ctxMove, 30);
 	var down = new Image();
@@ -36,24 +37,48 @@
 	var bugdown;
 	var bugleft;
 	var bugright;
-	var maze = [
+	var windowsize = 50;
+	var check = true;
+	canvas.height = windowsize;
+	canvas.width = windowsize;
+	var genbeen = [];
+	var maze = [];
+	var visit = [];
+	var startingplace = {};
+	startingplace.x = Math.floor(Math.random()*(windowsize/10))*10;
+	startingplace.y = Math.floor(Math.random()*(windowsize/10))*10;
+	for(var i=0; i<(windowsize/10);i++){
+	    maze.push([]);
+	    visit.push([]);
+	    
+    }
+	    
+	while (check === true){
+	    visit[startingplace.x/10][startingplace.y/10] = true;
+	    genbeen.push(startingplace)
+	    debugger
+	    
+	}
+	/*var maze = [
 	    [right,mid,left,dr,ld],
 	    [dr,lu,dr,lu,top],
 	    [vert,dr,lu,right,ld],
 	    [mid,lu,dr,hori,mid],
 	    [ur,hori,lu,right,lu],
-	];
+	];*/
 	var bugx = 40;
 	var bugy = 10;
 	function ctxMove(){
-	    ctx.clearRect(0,0,50,50);
-	    for(i = 0; i < maze[0].length; i++){
+	    ctx.clearRect(0,0,windowsize,windowsize);
+	   
+	    
+	   /* for(i = 0; i < maze[0].length; i++){
 	        ctx.drawImage(maze[0][i],i*10,0);
 	        ctx.drawImage(maze[1][i],i*10,10);
 	        ctx.drawImage(maze[2][i],i*10,20);
 	        ctx.drawImage(maze[3][i],i*10,30);
 	        ctx.drawImage(maze[4][i],i*10,40);
-	    }
+	    }Basic maze test*/
 	    ctx.drawImage(dbug,bugx,bugy);
 	    var check = maze[bugy/10][bugx/10];
 	    if(check === right){
@@ -61,7 +86,7 @@
 	        bugdown = false;
 	        bugright = true;
 	        bugleft = false;
-	        debugger;
+	        
 	    }
 	    if(check === left){
 	        bugup = false;
@@ -161,6 +186,6 @@
     </style>
  </head>
  <body onload="draw();">
-   <canvas id="dklink" width="50" height="50"></canvas>
+   <canvas id="mazegame" width="100" height="100"></canvas>
  </body>
 </html>
